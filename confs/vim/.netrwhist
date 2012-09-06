@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/kanderson/conf/conf/sip_profiles'
+let g:netrw_dirhist_2='/opt/whistle/lib/cecho-0.0.3'
+let g:netrw_dirhist_3='/opt/whistle/utils/media_importer/src'
+let g:netrw_dirhist_4='/usr/src/freeswitch/src/mod/formats/mod_shout'
+let g:netrw_dirhist_5='/tmp'
+let g:netrw_dirhist_6='/tmp/.ICE-unix'
+let g:netrw_dirhist_7='/home/kanderson/customizations/.irssi'
