@@ -1,0 +1,17 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+WMII_IS_RUNNING=`ps a | grep wmii | awk '/[^"grep"] wmii$/'`
+if [ -n "$WMII_IS_RUNNING" ]; then
+  PROMPT_COMMAND='dirs | wmiir write /client/sel/label'
+fi
+
+# export LIBVA_DRIVER_NAME=vdpau
+# export VDPAU_DRIVER=r600
