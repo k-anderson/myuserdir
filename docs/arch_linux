@@ -95,3 +95,17 @@ NOTE:
 * GTK Dialog/Popups
 [2012-10-28 05:41] Running 'pacman -S zenity
 
+* Time/data
+pacman -S ntp; ntpdate time.nist.gov; systemctl enable ntpd; systemctl start ntpd
+
+* Tor
+pacman -S tor vidalia
+
+ * Slim
+pacman -S archlinux-themes-slim slim; systemctl enable slim.servic; vim /etc/slim.conf
+
+NOTE:
+  - Themes are located at /usr/share/slim/themes
+
+* DNS/Tor
+pacman -S dnsmasq; systemctl enable dnsmasq

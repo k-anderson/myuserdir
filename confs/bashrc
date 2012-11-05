@@ -13,5 +13,7 @@ if [ -n "$WMII_IS_RUNNING" ]; then
   PROMPT_COMMAND='dirs | wmiir write /client/sel/label'
 fi
 
+export TERM=xterm-256color
+
 # export LIBVA_DRIVER_NAME=vdpau
 # export VDPAU_DRIVER=r600
