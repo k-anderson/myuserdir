@@ -6,5 +6,4 @@ export WMII_NORMCOLORS='#ffffff #3e3e3e #333333'
 export WMII_FOCUSCOLORS='#ff9966 #333333 #333333'
 export WMII_URGENTCOLORS='#333333 #dea61c #dea61c'
 export WMII_BARCOLORS='#333333 #a7afc8 #3d3d3d'
-
 export WMII_FONT='xft:DejaVu Sans Mono-7'

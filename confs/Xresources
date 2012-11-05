@@ -30,7 +30,7 @@ xterm*boldMode: false
 xterm*colorBDMode: true
 xterm*colorBD: rgb:fc/fc/fc
 
-xterm*metaSendsEscape: true
 xterm*dynamicColors: true
-xterm*eightBitInput: true
-xterm*saveLines: 512
+xterm*saveLines: 2000
+xterm*eightBitInput: false
+xterm*metaSendsEscape: true
