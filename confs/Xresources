@@ -34,3 +34,5 @@ xterm*dynamicColors: true
 xterm*saveLines: 2000
 xterm*eightBitInput: false
 xterm*metaSendsEscape: true
+
+XTerm*VT100.translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
