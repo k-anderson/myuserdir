@@ -1,6 +1,6 @@
 ;; erlang-mode configuration
 ;; change this directory  to your Erlang root dir.
-(setq erlang-root-dir "/usr/lib64/erlang")
+(setq erlang-root-dir "/usr/lib/erlang")
 (setq erlang-tools-dir (car (file-expand-wildcards (concat erlang-root-dir "/lib/tools-*"))))
 
 ;; customisation of cc-mode

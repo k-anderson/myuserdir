@@ -1,0 +1,6 @@
+[submodule "emacs-customizations/vendor/erlang-emacs-extend"]
+	path = emacs-customizations/vendor/erlang-emacs-extend
+	url = http://github.com/xinmingyao/erlang-emacs-extend.git
+[submodule "emacs-customizations/vendor/erlang-distel"]
+	path = emacs-customizations/vendor/erlang-distel
+	url = git://github.com/massemanet/distel.git
