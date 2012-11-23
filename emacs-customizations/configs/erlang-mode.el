@@ -29,7 +29,7 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (list (concat emacs-dir "flymake/erlang/eflymake") (list local-file))))
+    (list (concat emacs-dir "flymake/erlang/flymake.sh") (list local-file buffer-file-name))))
 
 (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init flymake/cleanup))
 

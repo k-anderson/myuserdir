@@ -1,29 +1,56 @@
 #!/usr/bin/env escript
 -export([main/1]).
 
-main([File]) ->
+-record(state, {includes=[], paths=[], libs=get_erl_lib()}).
+
+main([Target, File]) ->
     Paths = string:tokens(filename:dirname(File), "/"),
     BaseDir = find_project_base(Paths, ""),
-    CompileOpts = [warn_obsolete_guard, warn_unused_import
-                   ,warn_shadow_vars, warn_export_vars
-                   ,strong_validation, report, bin_opt_info
-                   |include_paths(BaseDir, [])
-                  ],
-	io:format("~p~n", [CompileOpts]),
-	compile:file(File, CompileOpts).
+    State = includes(BaseDir, #state{}),
+    _ = get_erl_lib(),
+    Defaults = "-W +warn_obsolete_guard +warn_unused_import +warn_shadow_vars +warn_export_vars +strong_validation +report +bin_opt_info",
+    io:format("ERL_LIBS=\"~s\"; erlc ~s ~s ~s \"~s\"", [string:join(State#state.libs, ":")
+                                                        ,string:join(State#state.includes, " ")
+                                                        ,string:join(State#state.paths, " ")
+                                                        ,Defaults
+                                                        ,Target
+                                                       ]).
 
-include_paths(Dir, Includes) ->
-    lists:foldl(fun(D, I) ->
-                        case lists:sublist(D, length(D)-6, 7) of
+get_erl_lib() ->
+    case os:getenv("ERL_LIBS") of
+        false -> [];
+        ErlLibs ->
+            string:tokens(ErlLibs, ":;")
+    end.
+
+includes(Dir, State) ->
+    lists:foldl(fun(D, S) ->
+                        case string:sub_string(D, string:rchr(D, $/) + 1) of
                             "include" ->
-                                [{i, lists:flatten(Dir)}|I];
+                                S#state{includes=[lists:flatten(["-I \"", Dir, "\""])
+                                                  |S#state.includes
+                                                 ]};
                             "ebin" ->
-                                code:add_path(lists:flatten([Dir, "/ebin"])),
-                                I;
-                            _Else ->
-                                include_paths(D, I)
+                                S#state{paths=[lists:flatten(["-pa \"", D, "\""])
+                                               |S#state.paths
+                                              ]};
+                            Folder ->
+                                includes(D, maybe_update_libs(Dir, Folder, S))
                         end
-                end, Includes, get_sub_directories(Dir)).
+                end, State, get_sub_directories(Dir)).
+
+
+maybe_update_libs(Dir, Folder, State) ->
+    case string:sub_string(Dir, string:rchr(Dir, $/) + 1) =:= "lib"
+        andalso re:run(Folder, "^.*-[0-9]+\.[0-9]+\.?[0-9]?$") =/= nomatch 
+        andalso (not lists:member(Dir, State#state.libs))
+    of
+        false -> State;
+        true ->
+            State#state{libs=[lists:flatten(Dir)
+                              |State#state.libs
+                             ]}
+    end.    
 
 get_sub_directories(Dir) ->
     [D
