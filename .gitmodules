@@ -4,3 +4,30 @@
 [submodule "emacs-customizations/vendor/erlang-distel"]
 	path = emacs-customizations/vendor/erlang-distel
 	url = git://github.com/massemanet/distel.git
+[submodule "emacs-customizations/vendor/auto-complete"]
+	path = emacs-customizations/vendor/auto-complete
+	url = git://github.com/auto-complete/auto-complete.git
+[submodule "emacs-customizations/vendor/tabbar"]
+	path = emacs-customizations/vendor/tabbar
+	url = git://github.com/dholm/tabbar.git
+[submodule "emacs-customizations/vendor/autopair"]
+	path = emacs-customizations/vendor/autopair
+	url = git://github.com/capitaomorte/autopair.git
+[submodule "emacs-customizations/vendor/auto-pair"]
+	path = emacs-customizations/vendor/auto-pair
+	url = git://github.com/capitaomorte/autopair.git
+[submodule "emacs-customizations/vendor/popup-el"]
+	path = emacs-customizations/vendor/popup-el
+	url = https://github.com/auto-complete/popup-el.git
+[submodule "emacs-customizations/vendor/smartchr"]
+	path = emacs-customizations/vendor/smartchr
+	url = git://github.com/imakado/emacs-smartchr.git
+[submodule "emacs-customizations/vendor/flymake"]
+	path = emacs-customizations/vendor/flymake
+	url = git://github.com/illusori/emacs-flymake.git
+[submodule "emacs-customizations/vendor/distel"]
+	path = emacs-customizations/vendor/distel
+	url = git://github.com/massemanet/distel.git
+[submodule "emacs-customizations/vendor/ido"]
+	path = emacs-customizations/vendor/ido
+	url = git://github.com/emacsmirror/ido.git

@@ -1,4 +1,5 @@
 ;; Load tabbar
+;; requires popup
 (load-file (concat emacs-dir "vendor/tabbar/tabbar.el"))
 
 (tabbar-mode)

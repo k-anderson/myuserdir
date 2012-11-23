@@ -7,12 +7,12 @@
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t)
 
-(require 'vc-git)
-
 ;; General Embellishments
 (menu-bar-mode -1)
 (setq font-lock-maximum-decoration t)
 (global-set-key "\M-g" 'goto-line)
+(xterm-mouse-mode t)
+(mouse-wheel-mode t)
 ;;(highlight-tabs)
 ;;(highlight-trailing-whitespace)
 ;!!!(windmove-default-keybindings 'meta)
@@ -20,8 +20,8 @@
 ;!! (cua-mode t)
 
 ;; Show paren
-(require 'paren)
-(show-paren-mode t)
+;;(require 'paren)
+(show-paren-mode t)                                                                                                                                                                                       
                                                                                                                                                                                                                                                                           
 ;; Take care of tabs                                                                                                                                                                                                                                                      
 (setq c-basic-indent 2)                                                                                                                                                                                                                                                   
@@ -31,11 +31,7 @@
 ;; indent-tabs-mode explicitly. makefile-mode already does that, for                                                                                                                                                                                                      
 ;; example.                                                                                                                                                                                                                                                               
 (setq-default indent-tabs-mode nil)                                                                                                                                                                                                                                       
-;; if indent-tabs-mode is off, untabify before saving                                                                                                                                                                                                                     
-(add-hook 'write-file-hooks                                                                                                                                                                                                                                               
-         (lambda () (if (not indent-tabs-mode)                                                                                                                                                                                                                            
-                        (untabify (point-min) (point-max)))))                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                          
+
 ;; C-mode Embellishments                                                                                                                                                                                                                                                  
 (setq kill-whole-line t)      ;; Make ctrl-k kill an entire line if cursor at the beginning                                                                                                                                                                               
 (setq c-hungry-delete-key t)  ;;will delete "hungrily" in C mode                                                                                                                                                                                                          
@@ -46,6 +42,8 @@
 (global-set-key [delete] 'delete-char)                                                                                                                                                                                                                                    
                                                                                                                                                                                                                                                                           
 ;; Backup files and auto-saves                                                                                                                                                                                                                                            
+(setq make-backup-files nil)
+(auto-save-mode nil)
 ;; (setq make-backup-files nil)                                                                                                                                                                                                                                           
 (setq auto-save-default nil)                                                                                                                                                                                                                                              
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/emacs-backup"))))                                                                                                                                                                                                
@@ -60,7 +58,7 @@
 
 (define-key global-map "\C-h" 'backward-delete-char)
 (define-key global-map "\C-x?" 'help-command)
-(define-key global-map [f1]   'revert-buffer)
+;;(define-key global-map [f1]   'revert-buffer)
 (define-key global-map [f2]   'replace-string)
 (define-key global-map [f3]   'undo)
 (define-key global-map [f4]   'kill-buffer)

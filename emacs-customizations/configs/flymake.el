@@ -1,3 +1,4 @@
+(add-to-list 'load-path (concat emacs-dir "vendor/flymake"))
 (require 'flymake)
 
 (setq temporary-file-directory "/tmp")

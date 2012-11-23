@@ -5,3 +5,14 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+
+(setq-default ac-sources '(
+;;          ac-source-yasnippet
+          ac-source-semantic
+;;          ac-source-imenu
+          ac-source-abbrev
+;;          ac-source-words-in-buffer
+          ac-source-words-in-same-mode-buffers
+;;          ac-source-files-in-current-dir
+          ac-source-dictionary
+          ac-source-filename))

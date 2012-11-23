@@ -3,17 +3,6 @@
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq erlang-tools-dir (car (file-expand-wildcards (concat erlang-root-dir "/lib/tools-*"))))
 
-;; customisation of cc-mode
-(defun erlang-mode/common-hook ()
-  ;; style customization
-  (setq tab-width 2)
-  (setq indent-tabs-mode nil)
-  (setq c-basic-offset 2)
-
-  ;; local keys
-  (local-set-key [return] 'newline-and-indent)
-  )
-
 (defun erlang-machine-name ()
   (format "%s-emacs" user-login-name))
 
@@ -30,12 +19,6 @@
 
     (add-to-list 'auto-mode-alist '("\\.erl?$" . erlang-mode))
     (add-to-list 'auto-mode-alist '("\\.hrl?$" . erlang-mode))
-
-    (add-hook 'erlang-mode-common-hook 'erlang-mode/common-hook)
-
-    ;; --flymake
-;;    (load-file (concat erlang-tools-dir "/emacs/erlang-flymake.el"))
-
     )
   )
 
@@ -46,23 +29,34 @@
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (list (concat emacs-dir "vendor/erlang/eflymake") (list local-file))))
+    (list (concat emacs-dir "flymake/erlang/eflymake") (list local-file))))
 
 (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init flymake/cleanup))
 
 (defun my-erlang-mode-hook ()
-  (flymake-mode 1))
-(add-hook 'erlang-mode-common-hook 'my-erlang-mode-hook)
+  ;; style customization
+  (setq tab-width 2)
+  (setq indent-tabs-mode nil)
+  (setq c-basic-offset 2)
+  (local-set-key "\C-c:" 'uncomment-region)
+  (local-set-key "\C-c%" 'comment-region)
+  (local-set-key "\C-c\C-c" 'comment-region)
+
+  ;; local keys
+  (local-set-key [return] 'newline-and-indent)
+
+  ;; helpers
+  (flymake-mode 1)
+)
+(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+
+;; --auto-complete
+(add-to-list 'ac-modes 'erlang-mode)
 
 ;; --commons
-(add-hook 'erlang-mode-common-hook 'commons/common-hook)
-(add-hook 'erlang-mode-common-hook 'commons/show-prog-keywords)
-
+;;(add-hook 'erlang-mode-common-hook 'commons/show-prog-keywords)
 (add-to-list 'commons/trailing-whitespace-modes "erlang-mode")
 (add-to-list 'commons/untabify-modes "erlang-mode")
-
-;; --cedet
-(add-hook 'erlang-mode-common-hook 'cedet/hook)
 
 ;; This is needed for Distel setup
 (let ((distel-dir (concat emacs-dir "vendor/distel/elisp")))
@@ -72,14 +66,6 @@
 
 (require 'distel)
 (distel-setup)
-
-;; Some Erlang customizations
-(add-hook 'erlang-mode-hook
-          (lambda ()
-            ;; when starting an Erlang shell in Emacs, default in the node name
-            (setq inferior-erlang-machine-options '("-name" "emacs"))
-            ;; add Erlang functions to an imenu menu
-            (imenu-add-to-menubar "imenu")))
 
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 (defconst distel-shell-keys
@@ -97,10 +83,9 @@
             (dolist (spec distel-shell-keys)
               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
-(defun erl-shell-with-flags (flags)
-  "Start an erlang shell with flags"
-  (interactive (list (read-string "Flags: ")))
-  (set 'inferior-erlang-machine-options (split-string flags))
-  (erlang-shell))
+;; --ensure semantic is ready
+(load-library "semantic-erlang")
 
-(global-set-key "\C-c\C-z" 'erl-shell-with-flags)
+;; --compile
+(add-hook 'erlang-mode-hook (lambda () (set (make-local-variable 'compile-command) (format "cd %s; make" (get-closest-pathname)))))                                                                         
+;;(add-hook 'after-save-hook 'my-after-save-hook)

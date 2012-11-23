@@ -41,9 +41,9 @@
     (untabify (point-min) (point-max))))
 (add-hook 'before-save-hook 'commons/untabify-hook)
 
-(defun commons/common-keys-hook ()
-  (local-set-key "\C-F" 'commons/indent-whole-buffer)
-  (local-set-key "\C-A" 'mark-whole-buffer)
-  )
+;;(defun commons/common-keys-hook ()
+;;  (local-set-key "\C-F" 'commons/indent-whole-buffer)
+;;  (local-set-key "\C-A" 'mark-whole-buffer)
+;;  )
 ;; common keys for all files
-(add-hook 'find-file-hook 'commons/common-keys-hook)
+;;(add-hook 'find-file-hook 'commons/common-keys-hook)

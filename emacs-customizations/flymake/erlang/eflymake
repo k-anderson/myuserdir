@@ -1,0 +1,49 @@
+#!/usr/bin/env escript
+-export([main/1]).
+
+main([File]) ->
+    Paths = string:tokens(filename:dirname(File), "/"),
+    BaseDir = find_project_base(Paths, ""),
+    CompileOpts = [warn_obsolete_guard, warn_unused_import
+                   ,warn_shadow_vars, warn_export_vars
+                   ,strong_validation, report, bin_opt_info
+                   |include_paths(BaseDir, [])
+                  ],
+	io:format("~p~n", [CompileOpts]),
+	compile:file(File, CompileOpts).
+
+include_paths(Dir, Includes) ->
+    lists:foldl(fun(D, I) ->
+                        case lists:sublist(D, length(D)-6, 7) of
+                            "include" ->
+                                [{i, lists:flatten(Dir)}|I];
+                            "ebin" ->
+                                code:add_path(lists:flatten([Dir, "/ebin"])),
+                                I;
+                            _Else ->
+                                include_paths(D, I)
+                        end
+                end, Includes, get_sub_directories(Dir)).
+
+get_sub_directories(Dir) ->
+    [D
+     || D <- filelib:wildcard(lists:flatten([Dir, "/*"]))
+            ,filelib:is_dir(D)
+    ].
+
+find_project_base([], Base) -> Base;
+find_project_base([Path|Paths], Base) ->
+    Dir = [Base, "/", Path],
+    case is_std_erl_dir(Dir) of
+        true -> Base;
+        false ->
+            find_project_base(Paths, Dir)
+    end.
+
+is_std_erl_dir(Dir) ->
+    filelib:is_dir([Dir, "/src"])
+        orelse filelib:is_dir([Dir, "/include"])
+        orelse filelib:is_dir([Dir, "/ebin"])
+        orelse filelib:is_file([Dir, "/rebar.config"])
+        orelse filelib:is_file([Dir, "/Makefile"]).
+

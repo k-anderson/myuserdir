@@ -7,3 +7,7 @@ export WMII_FOCUSCOLORS='#ff9966 #333333 #333333'
 export WMII_URGENTCOLORS='#333333 #dea61c #dea61c'
 export WMII_BARCOLORS='#333333 #a7afc8 #3d3d3d'
 export WMII_FONT='xft:DejaVu Sans Mono-7'
+
+status() {
+  echo -n "#ffffff #3e3e3e #333333 0.08 0.04 0.05 | Thu Nov 22 10:27:48 PST 2012!"
+}
