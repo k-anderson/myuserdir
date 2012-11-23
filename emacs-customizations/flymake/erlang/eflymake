@@ -7,7 +7,6 @@ main([Target, File]) ->
     Paths = string:tokens(filename:dirname(File), "/"),
     BaseDir = find_project_base(Paths, ""),
     State = includes(BaseDir, #state{}),
-    _ = get_erl_lib(),
     Defaults = "-W +warn_obsolete_guard +warn_unused_import +warn_shadow_vars +warn_export_vars +strong_validation +report +bin_opt_info",
     io:format("ERL_LIBS=\"~s\"; erlc ~s ~s ~s \"~s\"", [string:join(State#state.libs, ":")
                                                         ,string:join(State#state.includes, " ")
