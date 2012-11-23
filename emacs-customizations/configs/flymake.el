@@ -40,3 +40,5 @@
 (custom-set-faces 
  '(flymake-errline ((((class color)) (:background "DarkRed")))) 
  '(flymake-warnline ((((class color)) (:background "DarkBlue"))))) 
+
+(setq flymake-no-changes-timeout 5)

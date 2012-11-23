@@ -66,6 +66,7 @@
 
 (require 'distel)
 (distel-setup)
+(require 'auto-complete-distel)
 
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 (defconst distel-shell-keys
@@ -88,4 +89,3 @@
 
 ;; --compile
 (add-hook 'erlang-mode-hook (lambda () (set (make-local-variable 'compile-command) (format "cd %s; make" (get-closest-pathname)))))                                                                         
-;;(add-hook 'after-save-hook 'my-after-save-hook)
