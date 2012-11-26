@@ -42,3 +42,4 @@
  '(flymake-warnline ((((class color)) (:background "DarkBlue"))))) 
 
 (setq flymake-no-changes-timeout 5)
+(setq flymake-start-syntax-check-on-newline t)

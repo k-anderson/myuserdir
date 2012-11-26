@@ -1,26 +1,32 @@
 ;; erlang-mode configuration
-;; change this directory  to your Erlang root dir.
-(setq erlang-root-dir "/usr/lib/erlang")
-(setq erlang-tools-dir (car (file-expand-wildcards (concat erlang-root-dir "/lib/tools-*"))))
+(defun erlang-setup ()
+  (if (and (file-exists-p "/usr/lib64/")
+    (file-exists-p "/usr/lib64/erlang"))
+      (setq erlang-basefolder "/usr/lib64/erlang")
+    (if (and (file-exists-p "/usr/lib/")
+      (file-exists-p "/usr/lib/erlang"))
+ (setq erlang-basefolder "/usr/lib/erlang")))
+  (if erlang-basefolder
+      (progn
+ (let ((lib-folder (concat erlang-basefolder "/lib")))
+   (dolist (fldr (directory-files lib-folder))
+     (if (and 
+   (> (length fldr) 6)
+   (string= (substring fldr 0 6) "tools-"))
+   (setq erlang-tools-dir (concat lib-folder (concat "/" fldr)))))
+   (setq load-path (cons (concat erlang-tools-dir "/emacs") load-path))
+   (setq erlang-root-dir erlang-basefolder)
+   (setq exec-path (cons (concat erlang-basefolder "/bin")  exec-path))
+   (require 'erlang-start)
+   (add-to-list 'auto-mode-alist '("\\.erl?$" . erlang-mode))
+   (add-to-list 'auto-mode-alist '("\\.hrl?$" . erlang-mode))))))
+
+(erlang-setup)
 
 (defun erlang-machine-name ()
   (format "%s-emacs" user-login-name))
 
-(when (file-directory-p erlang-root-dir)
-  (when (file-directory-p (concat erlang-tools-dir "/emacs"))
-
-    (setq load-path (cons (concat erlang-tools-dir "/emacs") load-path))
-    (setq exec-path (cons (concat erlang-root-dir "/bin") exec-path))
-    (require 'erlang-start)
-
-    ;; when starting an Erlang shell in Emacs, the node name
-    ;; by default should be "emacs"
-    (setq inferior-erlang-machine-options '("-name" "emacs"))
-
-    (add-to-list 'auto-mode-alist '("\\.erl?$" . erlang-mode))
-    (add-to-list 'auto-mode-alist '("\\.hrl?$" . erlang-mode))
-    )
-  )
+(setq inferior-erlang-machine-options '("-name" "emacs"))
 
 ;; --flymake
 (defun flymake-erlang-init ()
@@ -30,7 +36,6 @@
                       temp-file
                       (file-name-directory buffer-file-name))))
     (list (concat emacs-dir "flymake/erlang/flymake.sh") (list local-file buffer-file-name))))
-
 (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init flymake/cleanup))
 
 (defun my-erlang-mode-hook ()
@@ -66,7 +71,6 @@
 
 (require 'distel)
 (distel-setup)
-(require 'auto-complete-distel)
 
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 (defconst distel-shell-keys
@@ -85,7 +89,7 @@
               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
 ;; --ensure semantic is ready
-(load-library "semantic-erlang")
+;;(load-library "semantic-erlang")
 
 ;; --compile
-(add-hook 'erlang-mode-hook (lambda () (set (make-local-variable 'compile-command) (format "cd %s; make" (get-closest-pathname)))))                                                                         
+(add-hook 'erlang-mode-hook (lambda () (set (make-local-variable 'compile-command) (format "cd %s; make" (get-closest-pathname)))))

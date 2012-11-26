@@ -3,3 +3,10 @@
 	email = karl@2600hz.com
 [rerere]
 	enabled = 1
+[color]
+	ui = true
+[core]
+	autocrlf = input
+	safecrlf = true
+[push]
+	default = matching

@@ -8,6 +8,32 @@ export WMII_URGENTCOLORS='#333333 #dea61c #dea61c'
 export WMII_BARCOLORS='#333333 #a7afc8 #3d3d3d'
 export WMII_FONT='xft:DejaVu Sans Mono-7'
 
-status() {
-  echo -n "#ffffff #3e3e3e #333333 0.08 0.04 0.05 | Thu Nov 22 10:27:48 PST 2012!"
+fNet() {
+  interface=$(ip route list | grep default | sed -r 's|.*dev (\w*) .*|\1|g')
+  ip4=$(ip addr show $interface | grep "inet " | sed -r "s|.*inet ([0-9\.\/]*) .*|\1|g")
+  echo -n "$interface $ip4"
 }
+
+fBat() {
+  percentage=$(acpi -b | sed -r 's|.* ([0-9]*%).*|\1|g')
+  direction=$(acpi -b | grep Discharging > /dev/null && echo -n "-" || echo -n "+")
+  echo -n "$direction$percentage"
+}
+
+fUptime() {
+  echo -n $(uptime | sed 's/.*: //; s/,//g')
+}
+
+fDate() {
+  echo -n $(date '+%R %x')
+}
+
+status() {
+  echo -n "$(fBat) | $(fNet) | $(fUptime) | $(fDate)"
+}
+
+#Key XF86AudioRauseVolume
+#  eval amixer -c 0 set Master 2%+ &
+
+#Key XF86AudioLowerVolume
+#  eval amixer -c 0 set Master 2%- &
