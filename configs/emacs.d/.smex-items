@@ -1,0 +1,20 @@
+
+;; ----- smex-history -----
+(
+ whitespace-mode
+ global-whitespace-cleanup-mode
+ magit-show
+ git-blame-mode
+ git-timemachine
+ cd
+ 5x5
+)
+
+;; ----- smex-data -----
+(
+ (git-timemachine . 1)
+ (git-blame-mode . 2)
+ (magit-show . 1)
+ (global-whitespace-cleanup-mode . 1)
+ (whitespace-mode . 2)
+)

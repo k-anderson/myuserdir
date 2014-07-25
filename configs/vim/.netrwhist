@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/kanderson/projects/2600hz/kazoo/core/kazoo_xml-1.0.0/doc'
+let g:netrw_dirhist_2='/home/kanderson/projects/2600hz/kazoo/core/whistle_media-1.0.0/doc'
+let g:netrw_dirhist_3='/home/kanderson/backup'
+let g:netrw_dirhist_4='/home/kanderson/myuserdir/confs/irssi'
