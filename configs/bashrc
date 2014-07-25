@@ -17,9 +17,7 @@ fi
 export TERM=xterm-256color
 
 alias open="xdg-open"
-alias cli="/opt/freeswitch-2600hz/bin/fs_cli"
 alias emacs="emacs -nw"
-alias fscli="/opt/freeswitch-2600hz/bin/fs_cli"
 alias lsorhpans='pacman -Qdt'
 alias rmorphans='sudo pacman -Rs $(pacman -Qtdq)'
 alias pmclean='echo "pacman -Sc && pacman-optimize && echo -e \"ORPHANS\n-------\" && pacman -Qtdq" | sudo /bin/bash'
