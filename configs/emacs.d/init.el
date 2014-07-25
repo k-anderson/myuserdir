@@ -65,21 +65,9 @@
 ;; Use normal tabs in makefiles
 (add-hook 'makefile-mode-hook 'indent-tabs-mode)
 
-;; 
-(defmacro after-load (feature &rest body)
-  "After FEATURE is loaded, evaluate BODY."
-  (declare (indent defun))
-  `(eval-after-load ,feature
-     '(progn ,@body)))
-
-;; Handier way to add modes to auto-mode-alist
-(defun add-auto-mode (mode &rest patterns)
-  "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
-  (dolist (pattern patterns)
-    (add-to-list 'auto-mode-alist (cons pattern mode))))
-
+(require 'common)
+(require 'init-keybindings)
 (require 'init-compat)
-
 (require 'init-package)
 (require 'init-tabbar)
 (require 'init-themes)
@@ -87,8 +75,9 @@
 (require 'init-ido)
 (require 'init-mmm)
 (require 'init-visual-regexp)
-(require 'init-flycheck)
+;; (require 'init-flycheck)
 (require 'init-git)
+(require 'init-compile)
 ;; (require 'init-editing-utils)
 
 (require 'init-erlang)

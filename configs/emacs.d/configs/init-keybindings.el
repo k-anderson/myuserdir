@@ -1,0 +1,28 @@
+(define-key input-decode-map "\e\M-[D" [(meta left)])
+(define-key input-decode-map "\e\M-[C" [(meta right)])
+(define-key global-map "\C-h" 'backward-delete-char)
+(define-key global-map "\C-x?" 'help-command)
+(define-key global-map [f1]   'revert-buffer)
+(define-key global-map [f2]   'replace-string)
+(define-key global-map [f3]   'undo)
+(define-key global-map [f4]   'kill-buffer)
+(define-key global-map [f5]   'goto-line)
+(define-key global-map [f8]   'kill-line)
+(define-key global-map [f9]   'iconify-frame)
+(define-key global-map [f11]  'auto-save-mode)
+
+(define-key global-map [M-home] 'beginning-of-buffer)
+(define-key global-map [C-home] 'beginning-of-buffer)
+(define-key global-map [home] 'beginning-of-line)
+(define-key global-map [M-end] 'end-of-buffer)
+(define-key global-map [C-end] 'end-of-buffer)
+(define-key global-map [end] 'end-of-line)
+
+(define-key global-map [C-down]  'scroll-up)
+(define-key global-map [C-up]    'scroll-down)
+(define-key global-map [C-left]  'beginning-of-line)
+(define-key global-map [C-right] 'end-of-line)
+
+(global-set-key "\M-g" 'goto-line)
+
+(provide 'init-keybindings)
