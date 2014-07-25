@@ -1,1 +1,0 @@
-/home/kanderson/.irssi/scripts/rnotify.pl
