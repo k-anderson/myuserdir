@@ -11,8 +11,6 @@
 (menu-bar-mode -1)
 (setq font-lock-maximum-decoration t)
 (global-set-key "\M-g" 'goto-line)
-(xterm-mouse-mode t)
-(mouse-wheel-mode t)
 ;;(highlight-tabs)
 ;;(highlight-trailing-whitespace)
 ;!!!(windmove-default-keybindings 'meta)
@@ -52,13 +50,21 @@
   kept-new-versions 6                                                                                                                                                                                                                                                     
   kept-old-versions 2                                                                                                                                                                                                                                                     
   version-control t)                                                                                                                                                                                                                                                      
+
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
                                                                                                                                                                                                                                                                           
 (define-key input-decode-map "\e\M-[D" [(meta left)])
 (define-key input-decode-map "\e\M-[C" [(meta right)])
 
-(define-key global-map "\C-h" 'backward-delete-char)
-(define-key global-map "\C-x?" 'help-command)
-;;(define-key global-map [f1]   'revert-buffer)
+;; see https://www.emacswiki.org/emacs/BackspaceKey
+(global-set-key (kbd "C-?") 'help-command)
+(global-set-key (kbd "M-?") 'mark-paragraph)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "M-h") 'backward-kill-word)
+
+;;(define-key global-map "\C-h" 'backward-delete-char)
+;;(define-key global-map "\C-x?" 'help-command)
+(define-key global-map [f1]   'revert-buffer)
 (define-key global-map [f2]   'replace-string)
 (define-key global-map [f3]   'undo)
 (define-key global-map [f4]   'kill-buffer)

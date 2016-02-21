@@ -55,8 +55,8 @@
 
 ;; --commons
 ;;(add-hook 'erlang-mode-common-hook 'commons/show-prog-keywords)
-(add-to-list 'commons/trailing-whitespace-modes "erlang-mode")
-(add-to-list 'commons/untabify-modes "erlang-mode")
+(add-to-list 'commons/trailing-whitespace-modes 'erlang-mode)
+(add-to-list 'commons/untabify-modes 'erlang-mode)
 
 ;; This is needed for Distel setup
 (let ((distel-dir (concat emacs-dir "vendor/distel/elisp")))

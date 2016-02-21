@@ -24,13 +24,15 @@
   (font-lock-add-keywords nil '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))
   (font-lock-add-keywords nil '(("\\<\\(DONE\\):" 1 font-lock-doc-face t))))
 
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 ;; add a mode editing mode here to clean trailing whitespaces automatically
 ;; ex: (add-to-list 'commons/trailing-whitespace-modes "java-mode")
 (setq commons/trailing-whitespace-modes '())
 
 (defun commons/trailing-whitespace-hook ()
   (when (member major-mode commons/trailing-whitespace-modes)
-    (delete-trailing-whitespace)))
+    (whitespace-cleanup)))
 (add-hook 'before-save-hook 'commons/trailing-whitespace-hook)
 
 ;; untabify some modes
